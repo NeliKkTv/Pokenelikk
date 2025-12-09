@@ -2,13 +2,13 @@
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
-// Configuration MySQL
-$host = 'sql101.infinityfree.com';
-$dbname = 'if0_40372762_pokenelikk';
-$username = 'if0_40372762';
+// Configuration MySQL depuis variables d'environnement
+$host = getenv('DB_HOST');
+$dbname = getenv('DB_NAME');
+$username = getenv('DB_USER');
 $password = getenv('DB_PASSWORD');
 
-// CLÉ SECRÈTE - CHANGEZ-LA !
+// CLÉ SECRÈTE depuis variable d'environnement
 define('API_KEY', getenv('API_KEY'));
 
 // Vérifier la clé API
@@ -102,5 +102,4 @@ switch ($action) {
         http_response_code(400);
         echo json_encode(['error' => 'Invalid action']);
 }
-
 ?>
