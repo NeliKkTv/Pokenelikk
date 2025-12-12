@@ -2,10 +2,19 @@
 header('Content-Type: application/json');
 
 // Configuration MySQL depuis variables d'environnement
-$host = getenv('DB_HOST');
-$dbname = getenv('DB_NAME');
-$username = getenv('DB_USER');
-$password = getenv('DB_PASSWORD');
+$host = $_ENV['DB_HOST'] ?? getenv('DB_HOST') ?? 'localhost';
+$dbname = $_ENV['DB_NAME'] ?? getenv('DB_NAME') ?? 'railway';
+$username = $_ENV['DB_USER'] ?? getenv('DB_USER') ?? 'root';
+$password = $_ENV['DB_PASSWORD'] ?? getenv('DB_PASSWORD') ?? '';
+
+// Debug : afficher les valeurs (TEMPORAIRE)
+echo json_encode([
+    'debug' => true,
+    'host' => $host,
+    'dbname' => $dbname,
+    'username' => $username,
+    'password_set' => !empty($password)
+]) . "\n\n";
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
